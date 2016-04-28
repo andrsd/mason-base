@@ -1,0 +1,4 @@
+URI='http://softlayer-dal.dl.sourceforge.net/project/swig/swig/swig-2.0.11/swig-2.0.11.tar.gz'
+ARCH=
+PIDIR=$HOME/usr
+

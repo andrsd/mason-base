@@ -1,0 +1,10 @@
+#%Module
+
+module-whatis "MPICH"
+prepend-path  PATH $env(PACKAGES_DIR)/mpich/3.0.4/$env(ARCH)/bin
+setenv        CC  mpicc
+setenv        CXX mpicxx
+setenv        FC  mpif90
+setenv        F90 mpif90
+setenv        F77 mpif77
+

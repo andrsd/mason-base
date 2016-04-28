@@ -1,0 +1,12 @@
+#%Module
+
+module-whatis "distcc"
+prereq        gcc llvm
+prepend-path  PATH $env(PACKAGES_DIR)/distcc/bin
+
+setenv        CC  "distcc $env(CC)"
+setenv        CXX "distcc $env(CXX)"
+setenv        FC  "distcc $env(FC)"
+setenv        F90 "distcc $env(F90)"
+setenv        F77 "distcc $env(F77)"
+

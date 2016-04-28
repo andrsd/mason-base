@@ -1,0 +1,10 @@
+URI='http://hivelocity.dl.sourceforge.net/project/modules/Modules/modules-3.2.10/modules-3.2.10.tar.gz'
+PIDIR=$HOME/usr
+
+mpostinstall() {
+  do_postinstall
+  # install shell exts
+  mkdir -p ~/.env.d
+  cp ${FILES}/00-modules.bashrc ~/.env.d/
+}
+

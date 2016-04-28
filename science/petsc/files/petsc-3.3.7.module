@@ -1,0 +1,5 @@
+#%Module
+
+module-whatis "PETSc"
+setenv        PETSC_DIR $env(PACKAGES_DIR)/petsc/3.3.7/$env(ARCH)
+

@@ -1,0 +1,49 @@
+URI='http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.6.0.tar.gz'
+# we have to build HYPRE in source tree
+PBUILD=$PSRC
+# I hate PETSc build system
+PSRC=.
+MPI=mpich
+PIDIR=$PIDIR/$MPI
+
+munpack() {
+#  if [ ! -f $DISTFILES/fblaslapack-3.1.1.tar.gz ] ; then
+#    curl http://ftp.mcs.anl.gov/pub/petsc/externalpackages/fblaslapack-3.1.1.tar.gz -o $DISTFILES/fblaslapack-3.1.1.tar.gz
+#  fi
+  do_unpack
+}
+
+mconfigure() {
+  MCONF="--with-hypre-dir=$PACKAGES_DIR/hypre/2.10.0b/$ARCH \
+         --with-shared-libraries \
+         --with-cc=mpicc \
+         --with-cxx=mpicxx \
+         --with-fc=mpif90 \
+         --with-debugging=no \
+         --with-pic=yes \
+         --with-ssl=no \
+         --with-x=no \
+         --download-fblaslapack=1 \
+         --download-metis=1 \
+         --download-parmetis=1 \
+         --download-superlu_dist=1 \
+         --download-scalapack=1 \
+         --download-mumps=1 \
+         LDFLAGS='-Wl,-rpath,$PACKAGES_DIR/clang/3.7.0/lib' \
+         PETSC_DIR=`pwd`"
+}
+
+mmake() {
+  make PETSC_DIR=$PBUILD PETSC_ARCH=arch-darwin-c-opt all
+}
+
+minstall() {
+  make PETSC_DIR=$PBUILD PETSC_ARCH=arch-darwin-c-opt install
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/mpi/llvm-opt/$MPI/petsc/
+  cp ${FILES}/petsc-3.6.0.lua ~/.modules/mpi/llvm-opt/$MPI/petsc/3.6.0.lua
+}

@@ -1,0 +1,23 @@
+URI=''
+
+munpack() {
+	:
+}
+
+do_configure() {
+	:
+}
+
+mmake() {
+	:
+}
+
+minstall() {
+	:
+}
+
+mpostinstall() {
+	mkdir -p ~/.env.d
+	cp $FILES/00-packages.bashrc ~/.env.d/
+}
+

@@ -1,0 +1,3 @@
+URI='http://softlayer-dal.dl.sourceforge.net/project/pcre/pcre/8.31/pcre-8.31.tar.gz'
+PIDIR=$HOME/usr
+

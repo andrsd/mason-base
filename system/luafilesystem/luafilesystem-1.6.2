@@ -1,0 +1,16 @@
+PIDIR=$HOME/usr
+PBUILD=$PROOT/src/$PNAMEVER
+PSRC=.
+
+munpack() {
+  git clone https://github.com/keplerproject/luafilesystem.git $PNAMEVER
+  cd $PNAMEVER
+  git co 95573506c5b92d2fdc32b162a3ad86d2da8d4f15
+  git am $FILES/0001-fix-for-macosx-and-lua-5.2.patch
+}
+
+mconfigure() {
+  :
+}
+
+

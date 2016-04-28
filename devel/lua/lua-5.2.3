@@ -1,0 +1,17 @@
+URI=http://www.lua.org/ftp/lua-5.2.3.tar.gz
+ARCH=
+PBUILD=$PROOT/src/lua-5.2.3
+PSRC=.
+
+do_configure() {
+    :
+}
+
+mmake() {
+  make macosx
+}
+
+minstall() {
+  make macosx install
+}
+

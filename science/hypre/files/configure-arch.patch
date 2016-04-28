@@ -1,0 +1,11 @@
+--- hypre-2.8.0b/src/configure.org	2013-10-21 15:38:05.000000000 -0600
++++ hypre-2.8.0b/src/configure	2013-10-21 15:38:18.000000000 -0600
+@@ -6600,7 +6600,7 @@
+ echo "${ECHO_T}$HYPRE_ARCH" >&6
+          fi
+       else
+-         HYPRE_ARCH = $ARCH
++         HYPRE_ARCH=$ARCH
+          echo "$as_me:$LINENO: result: $HYPRE_ARCH" >&5
+ echo "${ECHO_T}$HYPRE_ARCH" >&6
+       fi

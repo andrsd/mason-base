@@ -1,0 +1,33 @@
+URI='http://computation.llnl.gov/casc/hypre/download/hypre-2.8.0b.tar.gz'
+# configure script is inside src/ dir in the tarball
+PSRC=$PSRC/src
+# we have to build HYPRE in source tree
+PBUILD=$PSRC
+# I hate HYPRE build system
+PSRC=.
+
+munpack() {
+  do_unpack
+  patch -p0 < $FILES/configure-arch.patch
+}
+
+mconfigure() {
+  MCONF="--with-blas-libs= \
+         --with-blas-lib-dir= \
+         --with-lapack-libs= \
+         --with-lapack-lib-dir= \
+         --with-blas=yes \
+         --with-lapack=yes"
+  FLAGS='-O3'
+  CFLAGS=$FLAGS
+  CXXFLAGS=$FLAGS
+  FFLAGS=$FLAGS
+  FCFLAGS=$FLAGS
+  F90FLAGS=$FLAGS
+  F77FLAGS=$FLAGS
+}
+
+mpostinstall() {
+  make distclean
+}
+

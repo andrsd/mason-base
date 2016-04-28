@@ -1,0 +1,17 @@
+URI='http://www.python.org/ftp/python/3.3.2/Python-3.3.2.tgz'
+ARCH=
+PSRC=$PROOT/src/Python-$PVERSION
+
+mconfigure() {
+  MCONF="--enable-shared \
+         --enable-ipv6 \
+         --with-system-expat"
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/python
+  cp ${FILES}/python-3.3.2.module ~/.modules/python/$PVERSION
+}
+

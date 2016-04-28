@@ -1,0 +1,7 @@
+#%Module
+#
+
+module-whatis "loads the environment for GCC"
+
+setenv  ARCH gnu-opt
+

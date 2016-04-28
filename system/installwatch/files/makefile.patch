@@ -1,0 +1,37 @@
+--- installwatch-0.6.3/Makefile.org	2013-10-25 08:50:27.000000000 -0600
++++ installwatch-0.6.3/Makefile	2013-10-25 08:58:39.000000000 -0600
+@@ -13,10 +13,10 @@
+ BINDIR=$(PREFIX)/bin
+ LIBDIR=$(PREFIX)/lib
+ 
+-all: installwatch.so
++all: installwatch.dylib
+ 
+-installwatch.so: installwatch.o
+-	ld -shared -o installwatch.so installwatch.o -ldl -lc
++installwatch.dylib: installwatch.o
++	ld -dylib -o installwatch.dylib installwatch.o -ldl -lc
+ 
+ installwatch.o: installwatch.c localdecls.h
+ 	gcc -Wall -c -D_GNU_SOURCE -DPIC -fPIC -D_REENTRANT -DVERSION=\"$(VERSION)\" installwatch.c
+@@ -25,17 +25,17 @@
+ 	./create-localdecls
+ 
+ install: all
+-	if [ -r $(LIBDIR)/installwatch.so ]; then rm  $(LIBDIR)/installwatch.so; export LD_PRELOAD=""; cp installwatch.so $(LIBDIR); LD_PRELOAD=$(LIBDIR)/installwatch.so; else cp installwatch.so $(LIBDIR); fi
++	if [ -r $(LIBDIR)/installwatch.dylib ]; then rm  $(LIBDIR)/installwatch.dylib; export LD_PRELOAD=""; cp installwatch.dylib $(LIBDIR); LD_PRELOAD=$(LIBDIR)/installwatch.dylib; else cp installwatch.dylib $(LIBDIR); fi
+ 	
+ 	sed -e "s|#PREFIX#|$(PREFIX)|" < installwatch > $(BINDIR)/installwatch
+ 	chmod 755 $(BINDIR)/installwatch
+ 
+ uninstall:
+-	rm $(LIBDIR)/installwatch.so
++	rm $(LIBDIR)/installwatch.dylib
+ 	rm $(BINDIR)/installwatch
+ 	
+ clean:
+-	rm -f *~ *.bak *.o installwatch.so core localdecls.h libctest test-installwatch
++	rm -f *~ *.bak *.o installwatch.dylib core localdecls.h libctest test-installwatch
+ 
+ tarball: clean
+ 	tar -czvC .. -f ../installwatch-$(VERSION).tar.gz installwatch-$(VERSION)

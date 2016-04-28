@@ -1,0 +1,29 @@
+# configure script is inside src/ dir in the tarball
+PSRC=$PSRC/src
+# we have to build HYPRE in source tree
+PBUILD=$PSRC
+# I hate HYPRE build system
+PSRC=.
+
+munpack() {
+  git clone https://github.com/apc-llc/hypre.git $PNAMEVER
+  cd $PNAMEVER
+  git checkout fdcb1842167309eb07aeb77b19d28425fb9526f9
+  cd ..
+}
+
+mconfigure() {
+  MCONF="--with-blas-libs= \
+         --with-blas-lib-dir= \
+         --with-lapack-libs= \
+         --with-lapack-lib-dir= \
+         --with-blas=yes \
+         --with-lapack=yes"
+  FLAGS='-O3'
+  CFLAGS=$FLAGS
+  CXXFLAGS=$FLAGS
+  FFLAGS=$FLAGS
+  FCFLAGS=$FLAGS
+  F90FLAGS=$FLAGS
+  F77FLAGS=$FLAGS
+}

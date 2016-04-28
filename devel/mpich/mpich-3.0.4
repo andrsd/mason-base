@@ -1,0 +1,26 @@
+URI='http://www.mpich.org/static/downloads/3.0.4/mpich-3.0.4.tar.gz'
+
+mconfigure() {
+  MCONF="--enable-shared \
+         --enable-fast=O3 \
+         --enable-debuginfo \
+         --enable-two-level-namespace"
+  FLAGS='-fPIC'
+  CFLAGS=$FLAGS
+  CXXFLAGS=$FLAGS
+  FCFLAGS=$FLAGS
+  F90FLAGS=''
+  F77FLAGS=$FLAGS
+  F90=''
+}
+
+mpostinstall() {
+  do_postinstall
+  # fix linking 
+  sed -i.org -e 's/-L.\/src\/mpl\ -L.\/src\/openpa\/src //g' $PIDIR/lib/libmpich.la
+  sed -i.org -e 's/-L.\/src\/mpl\ -L.\/src\/openpa\/src //g' $PIDIR/lib/libpmpich.la
+  # install module
+  mkdir -p ~/.modules/mpich
+  cp ${FILES}/mpich-3.0.4.module ~/.modules/mpich/3.0.4
+}
+

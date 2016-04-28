@@ -1,0 +1,5 @@
+URI=https://codeload.github.com/luaposix/luaposix/tar.gz/release-v31
+ARCH=
+PIDIR=$HOME/usr
+PSRC=$PROOT/src/luaposix-release-$PVERSION
+

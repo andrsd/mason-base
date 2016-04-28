@@ -1,0 +1,26 @@
+URI='http://mirror.nexcess.net/gnu/gcc/gcc-4.7.2/gcc-4.7.2.tar.gz'
+PIDIR=$HOME/usr
+
+munpack() {
+  do_unpack
+  # change wget to curl (no wget on Mac OS X
+  sed -i.org -e 's/wget/curl -O/g' $PSRC/contrib/download_prerequisites
+  # download prereqs required by gcc
+  cd $PSRC
+  ./contrib/download_prerequisites
+}
+
+mconfigure() {
+  MCONF="--enable-languages=c,c++,fortran \
+         --program-suffix=-4.7.2 \
+         --enable-checking=release"
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/gcc
+  cp ${FILES}/gcc-4.7.2.module ~/.modules/gcc/${PVERSION}
+  ln -s /usr/local/gfortran-4.7.2 /usr/local/gfortran
+}
+

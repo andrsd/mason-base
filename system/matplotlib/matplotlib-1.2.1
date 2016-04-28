@@ -1,0 +1,16 @@
+URI='http://softlayer-dal.dl.sourceforge.net/project/matplotlib/matplotlib/matplotlib-1.2.1/matplotlib-1.2.1.tar.gz'
+PBUILD=$PSRC
+PIDIR=$PACKAGE_HOME/$PNAME
+
+do_configure() {
+  :
+}
+
+mmake() {
+  python setup.py build
+}
+
+minstall() {
+  python setup.py install
+}
+

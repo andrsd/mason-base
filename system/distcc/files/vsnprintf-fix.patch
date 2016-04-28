@@ -1,0 +1,16 @@
+diff -ru distcc-3.1/src/snprintf.h.org distcc-3.1/src/snprintf.h
+--- distcc-3.1/src/snprintf.h.org	2013-10-22 08:57:37.000000000 -0600
++++ distcc-3.1/src/snprintf.h	2013-10-22 09:09:01.000000000 -0600
+@@ -27,12 +27,10 @@
+ int vasprintf(char **ptr, const char *format, va_list ap);
+ #endif
+ #if !HAVE_DECL_SNPRINTF
+-int snprintf(char *,size_t ,const char *, ...) PRINTF_ATTRIBUTE(3,4);
+ #endif
+ #if !HAVE_DECL_ASPRINTF
+ int asprintf(char **,const char *, ...) PRINTF_ATTRIBUTE(2,3);
+ #endif
+ 
+ #if !HAVE_DECL_VSNPRINTF
+-int vsnprintf(char *, size_t, const char *, va_list);
+ #endif

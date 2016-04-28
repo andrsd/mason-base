@@ -1,0 +1,13 @@
+URI='http://asic-linux.com.mx/~izto/checkinstall/files/source/installwatch-0.6.3.tar.gz'
+PIDIR=$HOME/usr
+PBUILD=$PSRC
+
+munpack() {
+  do_unpack
+  patch -p0 < ${FILES}/makefile.patch
+}
+
+do_configure() {
+  :
+}
+

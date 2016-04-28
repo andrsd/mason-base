@@ -1,0 +1,5 @@
+#%Module
+
+module-whatis "Python 3.3.2"
+prepend-path  PATH                $env(PACKAGES_DIR)/python/3.3.2/bin
+prepend-path  DYLD_LIBRARY_PATH   $env(PACKAGES_DIR)/python/3.3.2/lib

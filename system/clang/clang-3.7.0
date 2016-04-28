@@ -1,0 +1,47 @@
+URI="dummy/llvm-3.7.0.src.tar.xz"
+PSRC=$PROOT/src/llvm
+
+mdownload() {
+  curl -L -O http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/3.7.0/compiler-rt-3.7.0.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/3.7.0/libcxx-3.7.0.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/3.7.0/libcxxabi-3.7.0.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/3.7.0/openmp-3.7.0.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/3.7.0/clang-tools-extra-3.7.0.src.tar.xz || exit 2
+}
+
+munpack() {
+  mkdir -p $PSRC
+  tar -xf $DISTFILES/llvm-3.7.0.src.tar.xz               --strip-components 1 -C $PSRC
+  mkdir -p $PSRC/tools/clang
+  tar -xf $DISTFILES/cfe-3.7.0.src.tar.xz                --strip-components 1 -C $PSRC/tools/clang
+  mkdir -p $PSRC/projects/compiler-rt
+  tar -xf $DISTFILES/compiler-rt-3.7.0.src.tar.xz        --strip-components 1 -C $PSRC/projects/compiler-rt
+  mkdir -p $PSRC/projects/libcxx
+  tar -xf $DISTFILES/libcxx-3.7.0.src.tar.xz             --strip-components 1 -C $PSRC/projects/libcxx
+  mkdir -p $PSRC/projects/libcxxabi
+  tar -xf $DISTFILES/libcxxabi-3.7.0.src.tar.xz          --strip-components 1 -C $PSRC/projects/libcxxabi
+  mkdir -p $PSRC/projects/openmp
+  tar -xf $DISTFILES/openmp-3.7.0.src.tar.xz             --strip-components 1 -C $PSRC/projects/openmp
+  mkdir -p $PSRC/tools/clang/tools/extra
+  tar -xf $DISTFILES/clang-tools-extra-3.7.0.src.tar.xz  --strip-components 1 -C $PSRC/tools/clang/tools/extra
+}
+
+do_configure() {
+  echo "*** Configuring..."
+  cmake $PSRC \
+    -DCMAKE_INSTALL_RPATH:STRING="$PACKAGES_DIR/clang/3.7.0/lib" \
+    -DCLANG_DEFAULT_OPENMP_RUNTIME=libomp \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX="$PACKAGES_DIR/clang/3.7.0" \
+    -DCMAKE_INSTALL_NAME_DIR:STRING="$PACKAGES_DIR/clang/3.7.0/lib" \
+    -DCMAKE_MACOSX_RPATH:BOOL=OFF || exit 1
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/core/clang
+  cp ${FILES}/clang-3.7.0.lua ~/.modules/core/clang/3.7.0.lua
+}

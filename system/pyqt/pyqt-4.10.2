@@ -1,0 +1,8 @@
+URI='http://softlayer-dal.dl.sourceforge.net/project/pyqt/PyQt4/PyQt-4.10.2/PyQt-mac-gpl-4.10.2.tar.gz'
+PSRC=$PROOT/src/PyQt-mac-gpl-4.10.2
+PBUILD=$PSRC
+
+do_configure() {
+  python configure.py -q /usr/local/Qt4/4.8.5/bin/qmake
+}
+

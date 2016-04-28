@@ -1,0 +1,16 @@
+URI='http://pyyaml.org/download/pyyaml/PyYAML-3.10.tar.gz'
+PSRC=$PROOT/src/PyYAML-3.10
+PBUILD=$PSRC
+
+do_configure() {
+  :
+}
+
+mmake() {
+  python setup.py build
+}
+
+minstall() {
+  python setup.py install
+}
+

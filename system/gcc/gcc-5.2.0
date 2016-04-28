@@ -1,0 +1,26 @@
+URI='http://mirror.nexcess.net/gnu/gcc/gcc-5.2.0/gcc-5.2.0.tar.gz'
+
+munpack() {
+  do_unpack
+  # change wget to curl (no wget on Mac OS X
+  sed -i.org -e 's/wget/curl -O/g' $PSRC/contrib/download_prerequisites
+  # download prereqs required by gcc
+  cd $PSRC
+  ./contrib/download_prerequisites
+}
+
+mconfigure() {
+  MCONF="--enable-languages=c,c++,fortran \
+         --program-suffix=-5.2.0 \
+         --enable-lto \
+         --disable-multilib"
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/core/gfortran/
+  cp ${FILES}/gfortran-5.2.0.lua ~/.modules/core/gfortran/5.2.0.lua
+  mkdir -p ~/.modules/core/gcc/
+  cp ${FILES}/gcc-5.2.0.lua ~/.modules/core/gcc/5.2.0.lua
+}

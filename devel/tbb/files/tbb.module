@@ -1,0 +1,7 @@
+#%Module
+
+setenv        TBB_DIR            $env(PACKAGES_DIR)/tbb
+prepend-path  LIBRARY_PATH       $env(TBB_DIR)/lib
+prepend-path  DYLD_LIBRARY_PATH  $env(TBB_DIR)/lib
+#prepend-path  CPATH $env(TBB_DIR)/include            # do not do this, otherwise you cannot use distcc
+

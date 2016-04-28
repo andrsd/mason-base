@@ -1,0 +1,7 @@
+#%Module
+#
+
+module-whatis "loads the environment with LLVM/clang"
+
+setenv  ARCH llvm-opt
+
