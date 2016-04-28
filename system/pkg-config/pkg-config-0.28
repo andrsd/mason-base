@@ -1,0 +1,6 @@
+URI='https://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz'
+PIDIR=$HOME/usr
+
+mconfigure() {
+  MCONF="--with-internal-glib"
+}
