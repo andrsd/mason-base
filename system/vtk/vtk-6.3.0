@@ -1,0 +1,18 @@
+URI='http://www.vtk.org/files/release/6.3/VTK-6.3.0.tar.gz'
+PIDIR=$HOME/usr
+PSRC=$PROOT/src/VTK-$PVERSION
+
+do_configure() {
+  echo "*** Configuring..."
+  export MACOSX_DEPLOYMENT_TARGET=''
+  cmake $PSRC \
+    -DCMAKE_INSTALL_PREFIX=$PIDIR \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_RPATH:STRING="$PIDIR/lib" \
+    -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON \
+    -DCMAKE_INSTALL_NAME_DIR:STRING="$PIDIR/lib" \
+    -DCMAKE_MACOSX_RPATH:BOOL=ON \
+    -DVTK_WRAP_PYTHON=ON \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET="" \
+    -Wno-dev || exit 1
+}
