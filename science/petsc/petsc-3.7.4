@@ -1,0 +1,60 @@
+URI='http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.7.4.tar.gz'
+# we have to build HYPRE in source tree
+PBUILD=$PSRC
+# I hate PETSc build system
+PSRC=.
+MPI=mpich
+PIDIR=$PIDIR/$MPI
+
+download_file() {
+  if [ ! -f $2 ] ; then
+    echo Downloading $1...
+    curl -L -o $2 $1
+  fi
+}
+
+munpack() {
+  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/fblaslapack-3.4.2.tar.gz $DISTFILES/fblaslapack-3.4.2.tar.gz
+  download_file https://github.com/xiaoyeli/superlu_dist/archive/0b5369f.tar.gz $DISTFILES/0b5369f.tar.gz
+  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/MUMPS_5.0.1-p1.tar.gz $DISTFILES/MUMPS_5.0.1-p1.tar.gz
+  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/scalapack-2.0.2.tgz $DISTFILES/scalapack-2.0.2.tgz
+  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/parmetis-4.0.3-p3.tar.gz $DISTFILES/parmetis-4.0.3-p3.tar.gz
+  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/metis-5.1.0-p3.tar.gz $DISTFILES/metis-5.1.0-p3.tar.gz
+
+  do_unpack
+}
+
+mconfigure() {
+  MCONF="--with-hypre-dir=$PACKAGES_DIR/hypre/2.10.0b/$ARCH \
+         --with-shared-libraries \
+         --with-cc=mpicc \
+         --with-cxx=mpicxx \
+         --with-fc=mpif90 \
+         --with-debugging=no \
+         --with-pic=yes \
+         --with-ssl=no \
+         --with-x=no \
+         --download-fblaslapack=$DISTFILES/fblaslapack-3.4.2.tar.gz \
+         --download-metis=$DISTFILES/metis-5.1.0-p3.tar.gz \
+         --download-parmetis=$DISTFILES/parmetis-4.0.3-p3.tar.gz \
+         --download-superlu_dist=$DISTFILES/0b5369f.tar.gz \
+         --download-scalapack=$DISTFILES/scalapack-2.0.2.tgz \
+         --download-mumps=$DISTFILES/MUMPS_5.0.1-p1.tar.gz \
+         LDFLAGS='-Wl,-rpath,$PACKAGES_DIR/clang/3.7.0/lib' \
+         PETSC_DIR=`pwd`"
+}
+
+mmake() {
+  make PETSC_DIR=$PBUILD PETSC_ARCH=arch-darwin-c-opt all
+}
+
+minstall() {
+  make PETSC_DIR=$PBUILD PETSC_ARCH=arch-darwin-c-opt install
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/mpi/llvm-opt/$MPI/petsc/
+  cp ${FILES}/petsc-3.7.4.lua ~/.modules/mpi/llvm-opt/$MPI/petsc/3.7.4.lua
+}
