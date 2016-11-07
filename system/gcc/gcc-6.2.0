@@ -1,0 +1,27 @@
+VER=6.2.0
+URI=http://mirror.nexcess.net/gnu/gcc/gcc-$VER/gcc-$VER.tar.gz
+
+munpack() {
+  do_unpack
+  # change wget to curl (no wget on Mac OS X
+  sed -i.org -e 's/wget/curl -O/g' $PSRC/contrib/download_prerequisites
+  # download prereqs required by gcc
+  cd $PSRC
+  ./contrib/download_prerequisites
+}
+
+mconfigure() {
+  MCONF="--enable-languages=c,c++,fortran \
+         --program-suffix=-$VER \
+         --enable-lto \
+         --disable-multilib"
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/core/gfortran/
+  cp ${FILES}/gfortran-$VER.lua ~/.modules/core/gfortran/$VER.lua
+  mkdir -p ~/.modules/core/gcc/
+  cp ${FILES}/gcc-$VER.lua ~/.modules/core/gcc/$VER.lua
+}
