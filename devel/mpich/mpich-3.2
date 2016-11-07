@@ -1,0 +1,23 @@
+URI='http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz'
+
+mconfigure() {
+  MCONF="--enable-shared \
+         --enable-sharedlibs=clang \
+         --enable-fast=O3 \
+         --enable-debuginfo \
+         --enable-two-level-namespace"
+  FLAGS=''
+  CFLAGS=$FLAGS
+  CXXFLAGS=$FLAGS
+  FCFLAGS=$FLAGS
+  F90FLAGS=$FLAGS
+  F77FLAGS=$FLAGS
+  F90=$FLAGS
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/compiler/$ARCH/mpich
+  cp ${FILES}/mpich-3.2.lua ~/.modules/compiler/$ARCH/mpich/3.2.lua
+}
