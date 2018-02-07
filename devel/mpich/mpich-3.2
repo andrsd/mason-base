@@ -1,4 +1,4 @@
-URI='http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz'
+URI=http://www.mpich.org/static/downloads/$PVERSION/mpich-$PVERSION.tar.gz
 
 mconfigure() {
   MCONF="--enable-shared \
@@ -19,5 +19,5 @@ mpostinstall() {
   do_postinstall
   # install module
   mkdir -p ~/.modules/compiler/$ARCH/mpich
-  cp ${FILES}/mpich-3.2.lua ~/.modules/compiler/$ARCH/mpich/3.2.lua
+  cp ${FILES}/mpich-$PVERSION.lua ~/.modules/compiler/$ARCH/mpich/$PVERSION.lua
 }

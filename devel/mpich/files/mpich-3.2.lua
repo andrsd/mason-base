@@ -1,10 +1,10 @@
--- MPICH 3.2
+-- MPICH
 
 whatis("MPICH")
 
 local packages_dir = os.getenv('PACKAGES_DIR')
-local pkgName = "mpich"
-local pkgVer  = "3.2"
+local pkgName = myModuleName()
+local pkgVer = myModuleVersion()
 local arch    = os.getenv('ARCH')
 
 prepend_path("PATH",  pathJoin(packages_dir, pkgName, pkgVer, arch, "bin"))
@@ -18,4 +18,4 @@ pushenv("F77", "mpif77")
 
 
 local modulepath_root = os.getenv("MODULEPATH_ROOT")
-prepend_path('MODULEPATH', pathJoin(modulepath_root, "mpi", "llvm-opt", pkgName))
+prepend_path('MODULEPATH', pathJoin(modulepath_root, "mpi", arch, pkgName))
