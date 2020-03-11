@@ -1,0 +1,6 @@
+URI='https://github.com/irssi/irssi/releases/download/0.8.19/irssi-0.8.19.tar.xz'
+PIDIR=$HOME/usr
+
+mconfigure() {
+  MCONF="--with-socks"
+}
