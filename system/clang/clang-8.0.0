@@ -1,0 +1,61 @@
+#
+# need to:
+# $ export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include
+# $ export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/include
+#
+
+URI="dummy/llvm-$PVERSION.src.tar.xz"
+PSRC=$PROOT/src/llvm
+
+mdownload() {
+  curl -L -O http://llvm.org/releases/$PVERSION/llvm-$PVERSION.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/$PVERSION/cfe-$PVERSION.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/$PVERSION/cfe-clang-tools-extra-$PVERSION.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/$PVERSION/compiler-rt-$PVERSION.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/$PVERSION/libcxx-$PVERSION.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/$PVERSION/libcxxabi-$PVERSION.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/$PVERSION/openmp-$PVERSION.src.tar.xz || exit 2
+  #curl -L -O http://llvm.org/releases/$PVERSION/lldb-$PVERSION.src.tar.xz || exit 2
+  curl -L -O http://llvm.org/releases/$PVERSION/clang-tools-extra-$PVERSION.src.tar.xz || exit 2
+}
+
+munpack() {
+  mkdir -p $PSRC
+  tar -xf $DISTFILES/llvm-$PVERSION.src.tar.xz               --strip-components 1 -C $PSRC
+  mkdir -p $PSRC/tools/clang
+  tar -xf $DISTFILES/cfe-$PVERSION.src.tar.xz                --strip-components 1 -C $PSRC/tools/clang
+  #mkdir -p $PSRC/tools/lldb
+  #tar -xf $DISTFILES/lldb-$PVERSION.src.tar.xz               --strip-components 1 -C $PSRC/tools/lldb
+  mkdir -p $PSRC/tools/clang/tools/extra
+  tar -xf $DISTFILES/clang-tools-extra-$PVERSION.src.tar.xz  --strip-components 1 -C $PSRC/tools/clang/tools/extra
+  mkdir -p $PSRC/projects/compiler-rt
+  tar -xf $DISTFILES/compiler-rt-$PVERSION.src.tar.xz        --strip-components 1 -C $PSRC/projects/compiler-rt
+  mkdir -p $PSRC/projects/libcxx
+  tar -xf $DISTFILES/libcxx-$PVERSION.src.tar.xz             --strip-components 1 -C $PSRC/projects/libcxx
+  mkdir -p $PSRC/projects/libcxxabi
+  tar -xf $DISTFILES/libcxxabi-$PVERSION.src.tar.xz          --strip-components 1 -C $PSRC/projects/libcxxabi
+  mkdir -p $PSRC/projects/openmp
+  tar -xf $DISTFILES/openmp-$PVERSION.src.tar.xz             --strip-components 1 -C $PSRC/projects/openmp
+}
+
+do_configure() {
+  echo "*** Configuring..."
+  cmake $PSRC \
+    -DCMAKE_INSTALL_RPATH:STRING="$PACKAGES_DIR/clang/$PVERSION/lib" \
+    -DCLANG_DEFAULT_OPENMP_RUNTIME=libomp \
+    -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
+    -DLLVM_ENABLE_RTTI=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLLVM_TARGETS_TO_BUILD="X86" \
+    -DCMAKE_INSTALL_PREFIX="$PACKAGES_DIR/clang/$PVERSION" \
+    -DCMAKE_INSTALL_NAME_DIR:STRING="$PACKAGES_DIR/clang/$PVERSION/lib" \
+    -DCMAKE_MACOSX_RPATH:BOOL=ON \
+    -Wno-dev || exit 1
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/core/clang
+  cp ${FILES}/clang-$PVERSION.lua ~/.modules/core/clang/$PVERSION.lua
+}
