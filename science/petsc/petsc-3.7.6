@@ -54,6 +54,6 @@ minstall() {
 mpostinstall() {
   do_postinstall
   # install module
-  mkdir -p ~/.modules/mpi/llvm-opt/$MPI/petsc/
-  cp ${FILES}/petsc-$PVERSION.lua ~/.modules/mpi/llvm-opt/$MPI/petsc/$PVERSION.lua
+  mkdir -p ~/.modules/mpi/$ARCH/$MPI/petsc/
+  cp ${FILES}/petsc-$PVERSION.lua ~/.modules/mpi/$ARCH/$MPI/petsc/$PVERSION.lua
 }
