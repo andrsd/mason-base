@@ -1,0 +1,24 @@
+URI=http://mirror.nexcess.net/gnu/gcc/gcc-$PVERSION/gcc-$PVERSION.tar.gz
+
+munpack() {
+  do_unpack
+  # download prereqs required by gcc
+  cd $PSRC
+  ./contrib/download_prerequisites
+}
+
+mconfigure() {
+  MCONF="--enable-languages=c,c++,fortran \
+         --program-suffix=-$PVERSION \
+         --enable-lto \
+         --disable-multilib"
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules/core/gfortran/
+  cp ${FILES}/gfortran-$PVERSION.lua ~/.modules/core/gfortran/$PVERSION.lua
+  mkdir -p ~/.modules/core/gcc/
+  cp ${FILES}/gcc-$PVERSION.lua ~/.modules/core/gcc/$PVERSION.lua
+}
