@@ -1,0 +1,30 @@
+URI='https://www.threadingbuildingblocks.org/sites/default/files/software_releases/mac/tbb42_20130725oss_osx.tgz'
+PSRC=$PROOT/src/tbb42_20130725oss
+PIDIR=$PACKAGE_HOME/$PNAME
+ARCH=''
+
+munpack() {
+  do_unpack
+  sed -i -e 's/"SUBSTITUTE_INSTALL_DIR_HERE"/\$TBB_DIR/g' $PSRC/bin/tbbvars.sh
+}
+
+do_configure() {
+  :
+}
+
+mmake() {
+  :
+}
+
+minstall() {
+  mkdir -p $PIDIR
+  cp -R $PSRC/ $PIDIR
+}
+
+mpostinstall() {
+  do_postinstall
+  # install module
+  mkdir -p ~/.modules
+  cp ${FILES}/tbb.module ~/.modules/tbb
+}
+
