@@ -1,0 +1,11 @@
+version=5.3.2
+prefix=/path/to/lua
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: Lua
+Description: An Extensible Extension Language
+Version: ${version}
+Requires:
+Libs: -L${libdir} -llua -lm
+Cflags: -I${includedir}
