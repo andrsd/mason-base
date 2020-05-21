@@ -25,6 +25,5 @@ mpostinstall() {
   do_postinstall
   # install module
   mkdir -p ~/.modules
-  cp ${FILES}/tbb.module ~/.modules/tbb
+  cp ${FILES}/tbb-$PVERSION.lua ~/.modules/core/tbb.lua
 }
-
