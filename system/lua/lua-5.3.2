@@ -1,0 +1,25 @@
+URI=http://www.lua.org/ftp/lua-$PVERSION.tar.gz
+ARCH=
+PBUILD=$PROOT/src/lua-$PVERSION
+PSRC=.
+PIDIR=$HOME/usr
+
+do_configure() {
+    :
+}
+
+mmake() {
+  make macosx INSTALL_TOP=$PIDIR
+}
+
+minstall() {
+  make macosx install INSTALL_TOP=$PIDIR
+  make pc INSTALL_TOP=$PIDIR > $PIDIR/lib/pkgconfig/lua.pc
+  echo "
+Name: Lua
+Description: An Extensible Extension Language
+Version: ${version}
+Requires:
+Libs: -L${libdir} -llua -lm
+Cflags: -I${includedir}" >> $PIDIR/lib/pkgconfig/lua.pc
+}
