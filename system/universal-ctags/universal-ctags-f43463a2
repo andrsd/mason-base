@@ -1,0 +1,18 @@
+ARCH=
+PIDIR=$HOME/usr
+# we have to build in source tree
+PBUILD=$PSRC
+# I hate thi
+PSRC=.
+
+munpack() {
+  git clone https://github.com/universal-ctags/ctags.git $PNAMEVER
+  cd $PNAMEVER
+  git checkout f43463a20b28c70cd7be167cff826ba8775aa33f
+  cd ..
+}
+
+mconfigure() {
+  cd ${PSRC}
+  ./autogen.sh
+}
