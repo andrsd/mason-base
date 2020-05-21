@@ -1,0 +1,3 @@
+URI='https://zlib.net/zlib-1.2.11.tar.gz'
+PIDIR=$HOME/usr
+PBUILD=$PSRC
