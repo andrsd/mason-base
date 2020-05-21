@@ -1,0 +1,23 @@
+URI=''
+
+munpack() {
+	:
+}
+
+do_configure() {
+	:
+}
+
+mmake() {
+	:
+}
+
+minstall() {
+	:
+}
+
+mpostinstall() {
+	mkdir -p ~/.modules/core
+	cp $FILES/gnu-opt.lua ~/.modules/core/gnu-opt.lua
+	mkdir -p ~/.modules/compiler/gnu-opt
+}

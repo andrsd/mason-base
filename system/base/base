@@ -19,12 +19,4 @@ minstall() {
 mpostinstall() {
 	mkdir -p ~/.env.d
 	cp $FILES/00-packages.bashrc ~/.env.d/
-
-	mkdir -p ~/.modules/core
-
-	cp $FILES/gnu-opt.lua ~/.modules/core/gnu-opt.lua
-	mkdir -p ~/.modules/compiler/gnu-opt
-
-	cp $FILES/llvm-opt.lua ~/.modules/core/llvm-opt.lua
-	mkdir -p ~/.modules/compiler/llvm-opt
 }

@@ -1,0 +1,23 @@
+URI=''
+
+munpack() {
+	:
+}
+
+do_configure() {
+	:
+}
+
+mmake() {
+	:
+}
+
+minstall() {
+	:
+}
+
+mpostinstall() {
+	mkdir -p ~/.modules/core
+	cp $FILES/llvm-opt.lua ~/.modules/core/llvm-opt.lua
+	mkdir -p ~/.modules/compiler/llvm-opt
+}
