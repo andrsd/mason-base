@@ -1,0 +1,14 @@
+URI=https://sourceforge.net/projects/ltp/files/Coverage%20Analysis/LCOV-1.14/lcov-1.14.tar.gz/download
+
+core_configure() {
+  :
+}
+
+core_make() {
+ :
+}
+
+minstall() {
+  cd $PSRC
+  make install DESTDIR=$HOME PREFIX=/usr
+}
