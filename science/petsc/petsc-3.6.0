@@ -42,7 +42,6 @@ minstall() {
 }
 
 mpostinstall() {
-  do_postinstall
   # install module
   mkdir -p ~/.modules/mpi/$ARCH/$MPI/petsc/
   cp ${FILES}/petsc-3.6.0.lua ~/.modules/mpi/$ARCH/$MPI/petsc/3.6.0.lua

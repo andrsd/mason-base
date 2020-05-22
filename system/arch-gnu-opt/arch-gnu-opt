@@ -4,8 +4,8 @@ munpack() {
 	:
 }
 
-do_configure() {
-	:
+mconfigure() {
+	MCONF=''
 }
 
 mmake() {

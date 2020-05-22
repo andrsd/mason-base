@@ -1,8 +1,8 @@
 URI='http://softlayer-dal.dl.sourceforge.net/project/numpy/NumPy/1.7.0/numpy-1.7.0.tar.gz'
 PBUILD=$PSRC
 
-do_configure() {
-  :
+mconfigure() {
+  MCONF=''
 }
 
 mmake() {
@@ -12,4 +12,3 @@ mmake() {
 minstall() {
   python setup.py install
 }
-

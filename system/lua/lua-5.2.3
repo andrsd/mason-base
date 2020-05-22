@@ -3,8 +3,8 @@ ARCH=
 PBUILD=$PROOT/src/lua-5.2.3
 PSRC=.
 
-do_configure() {
-    :
+mconfigure() {
+  MCONF=''
 }
 
 mmake() {
@@ -14,4 +14,3 @@ mmake() {
 minstall() {
   make macosx install
 }
-

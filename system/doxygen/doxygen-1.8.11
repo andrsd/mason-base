@@ -2,9 +2,8 @@ URI='http://downloads.sourceforge.net/project/doxygen/rel-1.8.11/doxygen-1.8.11.
 PIDIR=$HOME/usr
 PBUILD=$PSRC
 
-do_configure() {
-  echo "*** Configuring..."
-  cmake -G "Unix Makefiles" $PSRC \
-    -DCMAKE_OSX_DEPLOYMENT_TARGET="" \
-    -DCMAKE_INSTALL_PREFIX=$PIDIR || exit 1
+mconfigure() {
+  mcmake='
+    -G "Unix Makefiles" \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=""'
 }

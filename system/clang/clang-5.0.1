@@ -6,6 +6,7 @@
 
 URI="dummy/llvm-$PVERSION.src.tar.xz"
 PSRC=$PROOT/src/llvm
+PIDIR=$PACKAGES_DIR/clang/$PVERSION
 
 mdownload() {
   curl -L -O http://llvm.org/releases/$PVERSION/llvm-$PVERSION.src.tar.xz || exit 2
@@ -38,23 +39,19 @@ munpack() {
   tar -xf $DISTFILES/openmp-$PVERSION.src.tar.xz             --strip-components 1 -C $PSRC/projects/openmp
 }
 
-do_configure() {
-  echo "*** Configuring..."
-  cmake $PSRC \
+mconfigure() {
+  MCMAKE='
     -DCMAKE_INSTALL_RPATH:STRING="$PACKAGES_DIR/clang/$PVERSION/lib" \
     -DCLANG_DEFAULT_OPENMP_RUNTIME=libomp \
     -DLLVM_BUILD_EXTERNAL_COMPILER_RT=ON \
     -DLLVM_ENABLE_RTTI=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DLLVM_TARGETS_TO_BUILD="X86" \
-    -DCMAKE_INSTALL_PREFIX="$PACKAGES_DIR/clang/$PVERSION" \
     -DCMAKE_INSTALL_NAME_DIR:STRING="$PACKAGES_DIR/clang/$PVERSION/lib" \
-    -DCMAKE_MACOSX_RPATH:BOOL=OFF \
-    -Wno-dev || exit 1
+    -DCMAKE_MACOSX_RPATH:BOOL=OFF'
 }
 
 mpostinstall() {
-  do_postinstall
   # install module
   mkdir -p ~/.modules/core/clang
   cp ${FILES}/clang-$PVERSION.lua ~/.modules/core/clang/$PVERSION.lua

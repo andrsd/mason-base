@@ -7,11 +7,9 @@ mconfigure() {
 }
 
 mpostinstall() {
-  do_postinstall
   # install bash profile
   mkdir -p ~/.env.d
   cp ${FILES}/01-git.bashrc ~/.env.d
   # install bash completion
   cp $PSRC/contrib/completion/git-completion.bash ~/.env.d/01-git-completion.bashrc
 }
-

@@ -2,9 +2,8 @@ URI='http://www.vtk.org/files/release/5.10/vtk-5.10.1.tar.gz'
 PIDIR=$HOME/usr
 PSRC=$PROOT/src/VTK$PVERSION
 
-do_configure() {
-  echo "*** Configuring..."
-  cmake $PSRC -DCMAKE_INSTALL_PREFIX=$PIDIR \
+mconfigure() {
+  MCMAKE='
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DQT_QMAKE_EXECUTABLE=/usr/local/Qt4/4.8.5/bin/qmake \
@@ -16,6 +15,5 @@ do_configure() {
     -DSIP_INCLUDE_DIR=/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7 \
     -DSIP_PYQT_DIR=/System/Library/Frameworks/Python.framework/Versions/2.7/share/sip/PyQt4 \
     -DVTK_PYTHON_SETUP_ARGS='' \
-    -DVTK_LEGACY_REMOVE=ON || exit 1
+    -DVTK_LEGACY_REMOVE=ON'
 }
-

@@ -11,9 +11,6 @@ mconfigure() {
 }
 
 mpostinstall() {
-  do_postinstall
-  # install module
   mkdir -p ~/.modules
   cp ${FILES}/distcc-3.1.module ~/.modules/distcc
 }
-

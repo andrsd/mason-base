@@ -17,7 +17,6 @@ mconfigure() {
 }
 
 mpostinstall() {
-  do_postinstall
   # install module
   mkdir -p ~/.modules/core/clang
   cp ${FILES}/clang-3.5.1.lua ~/.modules/core/clang/3.5.1.lua

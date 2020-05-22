@@ -31,9 +31,7 @@ minstall() {
 }
 
 mpostinstall() {
-  do_postinstall
   # install module
   mkdir -p ~/.modules/petsc
   cp ${FILES}/petsc-3.3.7.module ~/.modules/petsc/3.3.7
 }
-

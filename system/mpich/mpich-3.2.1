@@ -16,7 +16,6 @@ mconfigure() {
 }
 
 mpostinstall() {
-  do_postinstall
   # install module
   mkdir -p ~/.modules/compiler/$ARCH/mpich
   cp ${FILES}/mpich-$PVERSION.lua ~/.modules/compiler/$ARCH/mpich/$PVERSION.lua

@@ -8,8 +8,8 @@ munpack() {
   sed -i -e 's/"SUBSTITUTE_INSTALL_DIR_HERE"/\$TBB_DIR/g' $PSRC/bin/tbbvars.sh
 }
 
-do_configure() {
-  :
+mconfigure() {
+  MCONF=''
 }
 
 mmake() {
@@ -22,9 +22,7 @@ minstall() {
 }
 
 mpostinstall() {
-  do_postinstall
   # install module
   mkdir -p ~/.modules
   cp ${FILES}/tbb.module ~/.modules/tbb
 }
-

@@ -15,12 +15,10 @@ mconfigure() {
 }
 
 mpostinstall() {
-  do_postinstall
-  # fix linking 
+  # fix linking
   sed -i.org -e 's/-L.\/src\/mpl\ -L.\/src\/openpa\/src //g' $PIDIR/lib/libmpich.la
   sed -i.org -e 's/-L.\/src\/mpl\ -L.\/src\/openpa\/src //g' $PIDIR/lib/libpmpich.la
   # install module
   mkdir -p ~/.modules/mpich
   cp ${FILES}/mpich-3.0.4.module ~/.modules/mpich/3.0.4
 }
-

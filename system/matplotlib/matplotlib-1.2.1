@@ -2,8 +2,8 @@ URI='http://softlayer-dal.dl.sourceforge.net/project/matplotlib/matplotlib/matpl
 PBUILD=$PSRC
 PIDIR=$PACKAGE_HOME/$PNAME
 
-do_configure() {
-  :
+mconfigure() {
+  MCONF=''
 }
 
 mmake() {
@@ -13,4 +13,3 @@ mmake() {
 minstall() {
   python setup.py install
 }
-

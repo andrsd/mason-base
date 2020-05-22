@@ -17,7 +17,6 @@ mconfigure() {
 }
 
 mpostinstall() {
-  do_postinstall
   # install module
   mkdir -p ~/.modules/core/gfortran/
   cp ${FILES}/gfortran-5.2.0.lua ~/.modules/core/gfortran/5.2.0.lua
