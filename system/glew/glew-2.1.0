@@ -1,0 +1,15 @@
+URI=https://downloads.sourceforge.net/project/glew/glew/2.1.0/glew-2.1.0.tgz
+PIDIR=$HOME/usr
+PBUILD=$PSRC
+
+mconfigure() {
+  MCONF=
+}
+
+mmake() {
+  make GLEW_DEST=$PIDIR GLEW_PREFIX=$PIDIR
+}
+
+minstall() {
+  make install GLEW_DEST=$PIDIR GLEW_PREFIX=$PIDIR
+}
