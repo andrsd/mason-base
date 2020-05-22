@@ -1,0 +1,18 @@
+URI=https://github.com/AlDanial/cloc/releases/download/1.86/cloc-1.86.tar.gz
+PIDIR=$HOME/usr
+
+core_configure() {
+  :
+}
+
+core_make() {
+  :
+}
+
+core_install() {
+  :
+}
+
+mpostinstall() {
+  cp $PSRC/cloc $PIDIR/bin
+}
