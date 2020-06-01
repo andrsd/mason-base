@@ -1,0 +1,8 @@
+URI=https://github.com/ccache/ccache/releases/download/v3.7.9/ccache-3.7.9.tar.gz
+PIDIR=$HOME/usr
+
+mpostinstall() {
+  mkdir -p
+  mkdir -p ~/.modules/core
+  cp ${FILES}/ccache.lua ~/.modules/core/ccache.lua
+}
