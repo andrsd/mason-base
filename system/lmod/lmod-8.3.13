@@ -1,0 +1,17 @@
+URI=https://github.com/TACC/Lmod/archive/8.3.13.tar.gz
+ARCH=
+PIDIR=$HOME/usr
+PSRC=$PROOT/src/Lmod-$PVERSION
+
+# To install:
+# - system/lua-5.2.3
+# - system/luarocks-2.3.0
+#
+# $ luarocks install luaposix
+# $ luarocks install luafilesystem
+#
+# Add this to env:
+# LUAROCKS_PREFIX=/usr/local
+# export LUA_PATH="$LUAROCKS_PREFIX/share/lua/5.2/?.lua;$LUAROCKS_PREFIX/share/lua/5.2/?/init.lua;;"
+# export LUA_CPATH="$LUAROCKS_PREFIX/lib/lua/5.2/?.so;;"
+#
