@@ -16,8 +16,6 @@ mconfigure() {
          --with-sysroot=`xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 }
 
-#--with-native-system-header-dir=`xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-
 minstall() {
   make install-strip
 }

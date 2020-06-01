@@ -7,7 +7,4 @@ prepend_path("LIBRARY_PATH",  pathJoin(packages_dir, "gcc", pkgVer, "lib"))
 
 setenv("CC",   "gcc-" .. pkgVer)
 setenv("CXX",  "g++-" .. pkgVer)
-local fc = "gfortran-" .. pkgVer
-setenv("FC",  fc)
-setenv("F90", fc)
-setenv("F77", fc)
+setenv("FC",   "gfortran-" .. pkgVer)
