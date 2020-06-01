@@ -1,9 +1,9 @@
 URI=http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$PVERSION.tar.gz
-# we have to build HYPRE in source tree
+# we have to build PETSc in source tree
 PBUILD=$PSRC
 PSRC=.
 MPI=mpich
-PIDIR=$PIDIR/$MPI
+PIDIR=$PACKAGE_HOME/$PNAME/$PVERSION/$ARCH/$MPI
 
 download_file() {
   if [ ! -f $2 ] ; then
@@ -26,11 +26,8 @@ munpack() {
 
 mconfigure() {
   MCONF="--with-shared-libraries \
-         --with-cc=mpicc \
-         --with-cxx=mpicxx \
-         --with-cxx-dialect=C++11 \
-         --with-fc=mpif90 \
          --with-debugging=no \
+         --with-cxx-dialect=C++11 \
          --with-pic=yes \
          --with-ssl=no \
          --with-x=no \
@@ -41,6 +38,11 @@ mconfigure() {
          --download-superlu_dist=yes \
          --download-scalapack=yes \
          --download-mumps=yes \
+         CC=$CC \
+         CXX=$CXX \
+         FC=$FC \
+         F77=$F77 \
+         F90=$F90 \
          PETSC_DIR=`pwd`"
 }
 
