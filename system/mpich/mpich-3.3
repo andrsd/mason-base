@@ -1,18 +1,15 @@
 URI=http://www.mpich.org/static/downloads/$PVERSION/mpich-$PVERSION.tar.gz
+PIDIR=$PACKAGE_HOME/$PNAME/$PVERSION/$ARCH
+PBUILD=$PROOT/build/$ARCH
 
 mconfigure() {
   MCONF="--enable-shared \
          --enable-sharedlibs=clang \
          --enable-fast=O3 \
          --enable-debuginfo \
-         --enable-two-level-namespace"
-  FLAGS=''
-  CFLAGS=$FLAGS
-  CXXFLAGS=$FLAGS
-  FCFLAGS=$FLAGS
-  F90FLAGS=$FLAGS
-  F77FLAGS=$FLAGS
-  F90=$FLAGS
+         --enable-two-level-namespace \
+         FC=$FC \
+         F90= "
 }
 
 mpostinstall() {
