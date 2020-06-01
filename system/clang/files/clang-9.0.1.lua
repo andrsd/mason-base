@@ -7,3 +7,5 @@ prepend_path("LIBRARY_PATH", pathJoin(packages_dir, "clang", pkgVer, "lib"))
 pushenv("CC",   "clang")
 pushenv("CXX",  "clang++")
 pushenv("LLVM", pathJoin(packages_dir, "clang", pkgVer, "bin"))
+
+pushenv("CPATH", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include")
