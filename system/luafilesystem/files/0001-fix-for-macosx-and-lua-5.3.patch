@@ -1,0 +1,17 @@
+diff --git a/config b/config
+index dfa329a..4eeacc9 100644
+--- a/config
++++ b/config
+@@ -1,10 +1,10 @@
+ # Installation directories
+ 
+ # Default installation prefix
+-PREFIX=/usr/local
++PREFIX=/Users/andrsd/usr
+ 
+ # System's libraries directory (where binary libraries are installed)
+-LUA_LIBDIR= $(PREFIX)/lib/lua/5.2
++LUA_LIBDIR= $(PREFIX)/lib/lua/5.3
+ 
+ # Lua includes directory
+ LUA_INC= $(PREFIX)/include
