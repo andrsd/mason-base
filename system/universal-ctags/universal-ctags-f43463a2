@@ -15,4 +15,5 @@ munpack() {
 mconfigure() {
   cd ${PSRC}
   ./autogen.sh
+  MCONF=' '
 }
