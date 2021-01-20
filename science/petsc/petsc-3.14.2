@@ -1,0 +1,61 @@
+URI=http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$PVERSION.tar.gz
+# we have to build PETSc in source tree
+PBUILD=$PSRC
+PSRC=.
+MPI=mpich
+PIDIR=$PACKAGE_HOME/$PNAME/$PVERSION/$ARCH/$MPI
+
+download_file() {
+  if [ ! -f $2 ] ; then
+    echo Downloading $1...
+    curl -L -o $2 $1
+  fi
+}
+
+munpack() {
+#  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/hypre-2.10.0b.tar.gz $DISTFILES/hypre-2.10.0b.tar.gz
+#  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/fblaslapack-3.4.2.tar.gz $DISTFILES/fblaslapack-3.4.2.tar.gz
+#  download_file https://github.com/xiaoyeli/superlu_dist/archive/0b5369f.tar.gz $DISTFILES/0b5369f.tar.gz
+#  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/MUMPS_5.0.2-p2.tar.gz $DISTFILES/MUMPS_5.0.2-p2.tar.gz
+#  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/scalapack-2.0.2.tgz $DISTFILES/scalapack-2.0.2.tgz
+#  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/parmetis-4.0.3-p3.tar.gz $DISTFILES/parmetis-4.0.3-p3.tar.gz
+#  download_file http://ftp.mcs.anl.gov/pub/petsc/externalpackages/metis-5.1.0-p3.tar.gz $DISTFILES/metis-5.1.0-p3.tar.gz
+
+  do_unpack
+}
+
+mconfigure() {
+  MCONF="--with-shared-libraries \
+         --with-debugging=no \
+         --with-cxx-dialect=C++11 \
+         --with-pic=yes \
+         --with-ssl=no \
+         --with-x=no \
+         --download-hypre=yes \
+         --download-fblaslapack=yes \
+         --download-metis=yes \
+         --download-parmetis=yes \
+         --download-superlu_dist=yes \
+         --download-scalapack=yes \
+         --download-mumps=yes \
+         CC=$CC \
+         CXX=$CXX \
+         FC=$FC \
+         F77=$F77 \
+         F90=$F90 \
+         PETSC_DIR=`pwd`"
+}
+
+mmake() {
+  make PETSC_DIR=$PBUILD PETSC_ARCH=arch-darwin-c-opt all
+}
+
+minstall() {
+  make PETSC_DIR=$PBUILD PETSC_ARCH=arch-darwin-c-opt install
+}
+
+mpostinstall() {
+  # install module
+  mkdir -p ~/.modules/mpi/$ARCH/$MPI/petsc/
+  cp ${FILES}/petsc-$PVERSION.lua ~/.modules/mpi/$ARCH/$MPI/petsc/$PVERSION.lua
+}
