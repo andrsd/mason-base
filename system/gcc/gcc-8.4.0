@@ -1,0 +1,39 @@
+# NOTE: built without conda being active, IDK if that matters
+URI=http://mirror.nexcess.net/gnu/gcc/gcc-$PVERSION/gcc-$PVERSION.tar.gz
+# we have to build in source tree *sigh*
+PBUILD=$PSRC
+PIDIR=$PACKAGES_DIR/gcc/$PVERSION
+
+
+munpack() {
+  do_unpack
+  patch -p0 < ${FILES}/8.4.0-download-prereqs.patch
+  # download prereqs required by gcc
+  cd $PSRC
+  ./contrib/download_prerequisites
+}
+
+mconfigure() {
+  export MACOSX_DEPLOYMENT_TARGET=10.9
+  # IDK if this is needed
+  LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
+  MCONF="--enable-languages=c,c++,fortran \
+         --program-suffix=-$PVERSION \
+         --enable-lto \
+         --disable-multilib \
+         --disable-nls \
+         --enable-checking=release \
+         --with-native-system-header-dir=`xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+}
+
+minstall() {
+  make install-strip
+}
+
+mpostinstall() {
+  # install module
+  mkdir -p ~/.modules/core/gfortran/
+  cp ${FILES}/gfortran-$PVERSION.lua ~/.modules/core/gfortran/$PVERSION.lua
+  mkdir -p ~/.modules/core/gcc/
+  cp ${FILES}/gcc-$PVERSION.lua ~/.modules/core/gcc/$PVERSION.lua
+}
