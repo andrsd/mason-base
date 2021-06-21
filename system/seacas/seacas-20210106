@@ -1,0 +1,18 @@
+PIDIR=$HOME/usr
+
+munpack() {
+  git clone https://github.com/gsjaardema/seacas.git ${PNAMEVER} || exit 1
+  cd ${PNAMEVER} || exit 1
+  git checkout v2021-01-06 || exit 1
+  patch -p0 < ${FILES}/curl.patch || exit 1
+}
+
+mconfigure() {
+  cd ${PSRC}
+  export ACCESS=`pwd`
+  MATIO=NO ${PSRC}/install-tpl.sh || exit 1
+
+  mkdir -p ${PBUILD} || exit 1
+  cd ${PBUILD} || exit 1
+  INSTALL_PATH=${PIDIR} ${PSRC}/cmake-exodus || exit 1
+}

@@ -1,0 +1,98 @@
+--- install-tpl.sh.org	2021-01-20 09:43:29.000000000 -0700
++++ install-tpl.sh	2021-01-20 09:56:58.000000000 -0700
+@@ -167,7 +167,7 @@
+ 	echo "   ADIOS2       = ${ADIOS2}"
+ 	echo "   GTEST        = ${GTEST}"
+ 	echo ""
+-	echo "   SUDO         = ${SUDO} (empty unless need superuser permission via 'sudo')" 
++	echo "   SUDO         = ${SUDO} (empty unless need superuser permission via 'sudo')"
+ 	echo "   JOBS         = ${JOBS}"
+ 	echo "   VERBOSE      = ${VERBOSE}"
+ 	echo "${txtrst}"
+@@ -178,7 +178,7 @@
+ # Check that cmake, git, wget exist at the beginning instead of erroring out later on...
+ check_exec cmake
+ check_exec git
+-check_exec wget
++check_exec curl
+ 
+ if [ "$NEEDS_SZIP" == "YES" ]
+ then
+@@ -196,7 +196,7 @@
+ 	    echo "${txtgrn}+++ Downloading...${txtrst}"
+             rm -rf libaec-${szip_version}
+             rm -rf v-${szip_version}.tar.gz
+-            wget --no-check-certificate https://github.com/MathisRosenhauer/libaec/archive/v${szip_version}.tar.gz
++            curl -k -O -L https://github.com/MathisRosenhauer/libaec/archive/v${szip_version}.tar.gz
+             tar -xzf v${szip_version}.tar.gz
+             rm -rf v${szip_version}.tar.gz
+         fi
+@@ -238,7 +238,7 @@
+ 	    echo "${txtgrn}+++ Downloading...${txtrst}"
+             rm -rf szip-${szip_version}
+             rm -rf szip-${szip_version}.tar.gz
+-            wget --no-check-certificate https://support.hdfgroup.org/ftp/lib-external/szip/2.1.1/src/szip-${szip_version}.tar.gz
++            curl -k -O -L https://support.hdfgroup.org/ftp/lib-external/szip/2.1.1/src/szip-${szip_version}.tar.gz
+             tar -xzf szip-${szip_version}.tar.gz
+             rm -rf szip-${szip_version}.tar.gz
+ 	fi
+@@ -285,7 +285,7 @@
+ 	    echo "${txtgrn}+++ Downloading...${txtrst}"
+             rm -rf zlib-${zlib_version}
+             rm -rf zlib-${zlib_version}.tar.gz
+-            wget --no-check-certificate https://zlib.net/zlib-${zlib_version}.tar.gz
++            curl -k -O -L https://zlib.net/zlib-${zlib_version}.tar.gz
+             tar -xzf zlib-${zlib_version}.tar.gz
+             rm -rf zlib-${zlib_version}.tar.gz
+ 	fi
+@@ -336,11 +336,11 @@
+         rm -f hdf5-${hdf_version}.tar.bz2
+ 	if [ "${H5VERSION}" == "V18" ]
+ 	then
+-	    wget --no-check-certificate https://support.hdfgroup.org/ftp/HDF5/current18/src/hdf5-${hdf_version}.tar.bz2
++	    curl -k -O -L https://support.hdfgroup.org/ftp/HDF5/current18/src/hdf5-${hdf_version}.tar.bz2
+ 	elif [ "${H5VERSION}" == "V110" ]; then
+-	    wget --no-check-certificate https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-${hdf_version}/src/hdf5-${hdf_version}.tar.bz2
++	    curl -k -O -L https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-${hdf_version}/src/hdf5-${hdf_version}.tar.bz2
+ 	elif [ "${H5VERSION}" == "V112" ]; then
+-	    wget --no-check-certificate https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-${hdf_version}/src/hdf5-${hdf_version}.tar.bz2
++	    curl -k -O -L https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-${hdf_version}/src/hdf5-${hdf_version}.tar.bz2
+ 	else
+ 	    echo 1>&2 ${txtred}Invalid HDF5 version specified: ${H5VERSION}.  Must be one of V18, V110, V112. exiting.${txtrst}
+ 	    exit 1
+@@ -389,7 +389,7 @@
+ 	    echo "${txtgrn}+++ Downloading...${txtrst}"
+             rm -rf ${pnet_base}-${pnet_version}
+             rm -f ${pnet_base}-${pnet_version}.tar.gz
+-            wget --no-check-certificate https://parallel-netcdf.github.io/Release/${pnet_base}-${pnet_version}.tar.gz
++            curl -k -O -L https://parallel-netcdf.github.io/Release/${pnet_base}-${pnet_version}.tar.gz
+             tar -xzf ${pnet_base}-${pnet_version}.tar.gz
+             rm -f ${pnet_base}-${pnet_version}.tar.gz
+         fi
+@@ -517,7 +517,7 @@
+ 	    echo "${txtgrn}+++ Downloading...${txtrst}"
+             rm -rf metis-5.1.0
+             rm -f metis-5.1.0.tar.gz
+-            wget --no-check-certificate https://github.com/scivision/METIS/raw/master/metis-5.1.0.tar.gz
++            curl -k -O -L https://github.com/scivision/METIS/raw/master/metis-5.1.0.tar.gz
+ 	    tar zxvf metis-5.1.0.tar.gz
+ 	fi
+ 
+@@ -640,7 +640,7 @@
+ 	then
+ 	    echo "${txtgrn}+++ Downloading...${txtrst}"
+             rm -rf kokkos
+-	    wget --no-check-certificate https://github.com/kokkos/kokkos/archive/${kokkos_version}.tar.gz
++            curl -k -O -L https://github.com/kokkos/kokkos/archive/${kokkos_version}.tar.gz
+             tar -zxf ${kokkos_version}.tar.gz
+             rm -f ${kokkos_version}.tar.gz
+ 	    ln -s kokkos-${kokkos_version} kokkos
+@@ -768,7 +768,7 @@
+         then
+ 	    echo "${txtgrn}+++ Downloading...${txtrst}"
+             rm -rf parallel-*
+-            wget --no-check-certificate ftp://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2
++            curl -k -O -L http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2
+             tar -jxf parallel-latest.tar.bz2
+             rm -rf parallel-latest.tar.bz2
+         fi
