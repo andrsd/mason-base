@@ -1,0 +1,29 @@
+--- gcc-8.3.0/contrib/download_prerequisites	2021-06-16 13:06:10.000000000 -0600
++++ gcc-8.3.0/contrib/download_prerequisites.new	2021-06-16 13:10:32.000000000 -0600
+@@ -32,7 +32,7 @@
+ mpc='mpc-1.0.3.tar.gz'
+ isl='isl-0.18.tar.bz2'
+
+-base_url='ftp://gcc.gnu.org/pub/gcc/infrastructure/'
++base_url='http://gcc.gnu.org/pub/gcc/infrastructure/'
+
+ echo_archives() {
+     echo "${gmp}"
+@@ -58,7 +58,7 @@
+ if type wget > /dev/null ; then
+   fetch='wget'
+ else
+-  fetch='curl -LO -u anonymous:'
++  fetch='curl -L'
+ fi
+ chksum_extension='sha512'
+ directory='.'
+@@ -219,7 +219,7 @@
+ do
+     if [ ${force} -gt 0 ]; then rm -f "${directory}/${ar}"; fi
+     [ -e "${directory}/${ar}" ]                                               \
+-        || ${fetch} --no-verbose -O "${directory}/${ar}" "${base_url}${ar}"       \
++        || ${fetch} --no-verbose -o "${directory}/${ar}" "${base_url}${ar}"       \
+         || die "Cannot download ${ar} from ${base_url}"
+ done
+ unset ar
