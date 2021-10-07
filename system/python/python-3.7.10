@@ -1,0 +1,25 @@
+URI=http://www.python.org/ftp/python/$PVERSION/Python-$PVERSION.tgz
+ARCH=
+# PIDIR=$HOME/usr
+PIDIR=$PACKAGE_HOME/$PNAME/$PVERSION
+PSRC=$PROOT/src/Python-$PVERSION
+
+
+mconfigure() {
+  MCONF="--enable-shared \
+         --enable-ipv6 \
+         --enable-optimizations \
+         --without-gcc \
+         --with-system-expat \
+         --with-tcltk-includes=-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers \
+         --with-tcltk-libs=-Ltkstub8.5 \
+         --with-openssl=$HOME/usr/ssl \
+         LDFLAGS=-L$HOME/usr/lib \
+         CPPFLAGS=-I$HOME/usr/include"
+}
+
+mpostinstall() {
+  # install module
+  mkdir -p ~/.modules/python
+  cp ${FILES}/python-$PVERSION.lua ~/.modules/core/python/$PVERSION.lua
+}
