@@ -1,17 +1,26 @@
+# NOTE: build this in a clean environment (i.e. no conda and no conda vars in env)
 URI=http://mirror.nexcess.net/gnu/gcc/gcc-$PVERSION/gcc-$PVERSION.tar.gz
+# we have to build in source tree *sigh*
+PBUILD=$PSRC
+PIDIR=$PACKAGES_DIR/gcc/$PVERSION
 
 munpack() {
   do_unpack
+  patch -p0 < ${FILES}/9.2.0-download-prereqs.patch
   # download prereqs required by gcc
   cd $PSRC
   ./contrib/download_prerequisites
 }
 
 mconfigure() {
+  export MACOSX_DEPLOYMENT_TARGET=10.9
+  # IDK if this is needed
+  LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
   MCONF="--enable-languages=c,c++,fortran \
          --program-suffix=-$PVERSION \
          --enable-lto \
          --disable-multilib \
+         --disable-nls \
          --enable-checking=release \
          --with-sysroot=`xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 }
