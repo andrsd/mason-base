@@ -1,0 +1,12 @@
+URI='https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_1_1_1l.tar.gz'
+ARCH=
+PIDIR=$HOME/usr
+PSRC=$PROOT/src/openssl-OpenSSL_1_1_1l
+
+do_configure() {
+  $PSRC/Configure \
+    --prefix=$PIDIR \
+    --openssldir=$PIDIR/ssl \
+    darwin64-x86_64-cc \
+    || exit 1
+}
